@@ -5,6 +5,11 @@
 	"main": "src/index.js",
 	"types": "types/index.d.ts",
 	"scripts": {
+		"dev": "concurrently -k -n assets,site,serve -c yellow,magenta,cyan \"npm:dev:watch\" \"npm:dev:site:watch\" \"npm:dev:serve\"",
+		"dev:watch": "webpack --config webpack.config.js --watch --mode=development",
+		"dev:site": "node ./bin/index.js -i demo -o site",
+		"dev:site:watch": "chokidar \"demo/**/*.md\" \"demo/base.html\" \"dist/**/*\" -c \"npm run dev:site\" --initial",
+		"dev:serve": "serve site -l 3001 --no-port-switching",
 		"build": "rtlcss dist/css/formsmd.css dist/css/formsmd.rtl.css && tsc && npm run lint && npm run format && csso dist/css/formsmd.css -o dist/css/formsmd.min.css -s file && csso dist/css/formsmd.rtl.css -o dist/css/formsmd.rtl.min.css -s file && webpack --config webpack.config.js && npx babel dist/js/formsmd.bundle.min.js -o dist/js/formsmd.bundle.min.js && terser dist/js/formsmd.bundle.min.js -o dist/js/formsmd.bundle.min.js && npx babel dist/js/composer.bundle.min.js -o dist/js/composer.bundle.min.js && terser dist/js/composer.bundle.min.js -o dist/js/composer.bundle.min.js",
 		"format": "npx prettier . --write",
 		"lint": "eslint bin/ --fix && eslint google-apps-script/ --fix && eslint src/ --fix && eslint tests/ --fix",
@@ -38,6 +43,8 @@
 		"@babel/preset-env": "^7.24.7",
 		"@eslint/js": "^9.14.0",
 		"beautify": "^0.0.8",
+		"chokidar-cli": "^3.0.0",
+		"concurrently": "^9.2.1",
 		"csso-cli": "^4.0.2",
 		"eslint": "^9.14.0",
 		"fs-extra": "^11.2.0",
@@ -46,6 +53,7 @@
 		"jest-environment-jsdom": "^29.7.0",
 		"prettier": "^3.2.5",
 		"rtlcss": "^4.1.1",
+		"serve": "^14.2.5",
 		"terser": "^5.30.4",
 		"typescript": "^5.4.2",
 		"webpack": "^5.90.3",
@@ -56,6 +64,7 @@
 		"highlight.js": "^11.9.0",
 		"marked": "^12.0.1",
 		"nunjucks": "^3.2.4",
+		"slugify": "^1.6.6",
 		"yargs": "^17.7.2"
 	},
 	"prettier": {
