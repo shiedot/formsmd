@@ -1,4 +1,4 @@
 {
-	"buildCommand": "npm run build",
-	"outputDirectory": "site"
+	"buildCommand": "npm run vercel-build",
+	"outputDirectory": "public"
 }
