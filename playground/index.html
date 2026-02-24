@@ -31,7 +31,7 @@
 
 			if (!ComposerCtor || !FormsmdCtor) {
 				throw new Error(
-					"Formsmd bundles loaded but constructors not found on window."
+					"Formsmd bundles loaded but constructors not found on window.",
 				);
 			}
 
@@ -60,7 +60,7 @@
 				document.getElementById("app"),
 				{
 					colorScheme: "dark",
-				}
+				},
 			);
 			formsmd.init();
 		</script>
