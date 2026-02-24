@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Formsmd Local Playground</title>
+		<link rel="stylesheet" href="./dist/css/formsmd.min.css" />
+		<style>
+			body {
+				font-family: system-ui, sans-serif;
+				margin: 24px;
+				background: rgb(20, 20, 20);
+				color: rgb(240, 240, 240);
+			}
+
+			/* Improve placeholder contrast for dark mode demo */
+			#app .fmd-form-str-input::placeholder {
+				color: rgb(176, 196, 230);
+				opacity: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+
+		<script src="./dist/js/composer.bundle.min.js"></script>
+		<script src="./dist/js/formsmd.bundle.min.js"></script>
+		<script>
+			const ComposerCtor = window.Composer || window.composer?.Composer;
+			const FormsmdCtor = window.Formsmd || window.formsmd?.Formsmd;
+
+			if (!ComposerCtor || !FormsmdCtor) {
+				throw new Error(
+					"Formsmd bundles loaded but constructors not found on window."
+				);
+			}
+
+			const composer = new ComposerCtor({
+				id: "local-playground",
+				page: "form-slides",
+				colorScheme: "dark",
+				slideControls: "show",
+				submitButtonText: "Next",
+			});
+			composer.textInput("fullName", {
+				question: "Full name",
+				placeholder: "John Doe",
+				required: true,
+			});
+			composer.slide({
+				pageProgress: "50%",
+			});
+			composer.emailInput("email", {
+				question: "What's your email?",
+				required: true,
+			});
+
+			const formsmd = new FormsmdCtor(
+				composer.template,
+				document.getElementById("app"),
+				{
+					colorScheme: "dark",
+				}
+			);
+			formsmd.init();
+		</script>
+	</body>
+</html>
